@@ -1,4 +1,4 @@
-module github.com/owlwang/caddy-ext/ratelimit
+module github.com/owlwang/caddy-ratelimit
 
 go 1.14
 
