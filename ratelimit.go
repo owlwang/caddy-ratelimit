@@ -103,7 +103,7 @@ func (rl *RateLimit) provision() (err error) {
 	}
 
 	if rl.RejectStatusCode == 0 {
-		rl.RejectStatusCode = http.StatusTooManyRequests
+		rl.RejectStatusCode = http.StatusOK
 	}
 
 	return nil
