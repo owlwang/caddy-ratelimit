@@ -6,7 +6,7 @@ A Caddy v2 extension to apply rate-limiting for HTTP requests.
 ## Installation
 
 ```bash
-$ xcaddy build --with github.com/owlwang/caddy-ext/ratelimit
+$ xcaddy build --with github.com/owlwang/caddy-ratelimit
 ```
 
 ## Caddyfile Syntax
