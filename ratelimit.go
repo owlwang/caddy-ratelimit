@@ -9,7 +9,6 @@ import (
 	"strings"
 	"time"
 
-	"github.com/caddyserver/caddy/v2"
 	"github.com/caddyserver/caddy/v2/modules/caddyhttp"
 	"go.uber.org/zap"
 	"inet.af/netaddr"
@@ -148,12 +147,23 @@ func (rl *RateLimit) ServeHTTP(w http.ResponseWriter, r *http.Request, next cadd
 			zap.String("value", keyValue),
 		)
 
+		addCorsHeader(w)
 		w.WriteHeader(rl.RejectStatusCode)
 		// Return an error to invoke possible error handlers.
 		return caddyhttp.Error(rl.RejectStatusCode, nil)
 	}
 
 	return next.ServeHTTP(w, r)
+}
+
+func addCorsHeader(res http.ResponseWriter) {
+	headers := res.Header()
+	headers.Add("Access-Control-Allow-Origin", "*")
+	headers.Add("Vary", "Origin")
+	headers.Add("Vary", "Access-Control-Request-Method")
+	headers.Add("Vary", "Access-Control-Request-Headers")
+	headers.Add("Access-Control-Allow-Headers", "Content-Type, Origin, Accept, token")
+	headers.Add("Access-Control-Allow-Methods", "GET,POST,OPTIONS")
 }
 
 type Var struct {
